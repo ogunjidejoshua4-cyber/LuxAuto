@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Details - LuxAuto</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="detail-styles.css">
+    <style>
+        /* ============================================
+   NAVBAR STYLES
+   ============================================ */
+
+/* Main Navigation */
+nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    background: linear-gradient(135deg, rgba(20, 20, 20, 0.95) 0%, rgba(30, 30, 30, 0.95) 100%);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 1rem 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Logo Styling */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: #fff;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    letter-spacing: -0.5px;
+}
+
+.logo i {
+    font-size: 1.8rem;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.logo:hover {
+    transform: translateY(-2px);
+}
+
+.logo:hover i {
+    transform: rotate(-10deg) scale(1.1);
+    color: var(--accent, #ff6b35);
+}
+
+/* Nav Links Container */
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 3rem;
+    margin: 0;
+    padding: 0;
+    flex: 1;
+    justify-content: center;
+}
+
+.nav-links li {
+    position: relative;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 0.5rem 0;
+    display: inline-block;
+}
+
+.nav-links a::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent, #ff6b35);
+    transition: width 0.3s ease;
+    border-radius: 1px;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: #fff;
+}
+
+.nav-links a:hover::before,
+.nav-links a.active::before {
+    width: 100%;
+}
+
+/* CTA Button */
+.nav-cta {
+    display: inline-block;
+    padding: 0.7rem 2rem;
+    background: var(--accent, #ff6b35);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    border: 2px solid var(--accent, #ff6b35);
+    white-space: nowrap;
+    letter-spacing: 0.3px;
+}
+
+.nav-cta:hover {
+    background: transparent;
+    color: var(--accent, #ff6b35);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(255, 107, 53, 0.3);
+}
+
+/* Mobile Menu Button */
+.mobile-menu-btn {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.mobile-menu-btn span {
+    width: 25px;
+    height: 2px;
+    background: #fff;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    nav {
+        padding: 1rem 4%;
+        gap: 1rem;
+    }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        flex-direction: column;
+        gap: 0;
+        background: rgba(20, 20, 20, 0.98);
+        padding: 1rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links li {
+        padding: 0 4%;
+    }
+
+    .nav-links a {
+        padding: 1rem 0;
+        display: block;
+        font-size: 1rem;
+    }
+
+    .mobile-menu-btn {
+        display: flex;
+        order: 3;
+    }
+
+    .logo {
+        font-size: 1.2rem;
+        order: 1;
+    }
+
+    .nav-cta {
+        order: 2;
+        padding: 0.6rem 1.5rem;
+        font-size: 0.85rem;
+    }
+}
+        /* ============================================
+   CAR DETAIL PAGE STYLES
+   ============================================ */
+
+/* Breadcrumb */
+.breadcrumb {
+    margin-top: 80px;
+    padding: 1rem 5%;
+    background: rgba(255, 255, 255, 0.02);
+    border-bottom: 1px solid var(--border);
+}
+
+.breadcrumb-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+}
+
+.breadcrumb a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.breadcrumb a:hover {
+    color: var(--accent);
+}
+
+.breadcrumb span {
+    color: var(--text-muted);
+}
+
+.breadcrumb span:last-child {
+    color: var(--accent);
+}
+
+/* Detail Container */
+.detail-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 5%;
+    min-height: calc(100vh - 300px);
+}
+
+/* Loading State */
+.loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem;
+    color: var(--text-muted);
+}
+
+.spinner-large {
+    width: 60px;
+    height: 60px;
+    border: 4px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+/* Detail Content Grid */
+.detail-content {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 3rem;
+}
+
+/* ============================================
+   GALLERY SECTION
+   ============================================ */
+
+.gallery-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.main-image {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+    aspect-ratio: 16/10;
+}
+
+.main-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.main-image:hover img {
+    transform: scale(1.05);
+}
+
+.image-badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: var(--accent);
+    color: var(--primary);
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.fullscreen-btn {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.95);
+    border: none;
+    color: var(--primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-size: 1.2rem;
+}
+
+.fullscreen-btn:hover {
+    transform: scale(1.1);
+    background: var(--accent);
+}
+
+/* Thumbnail Grid */
+.thumbnail-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+.thumbnail {
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    aspect-ratio: 16/10;
+}
+
+.thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.thumbnail:hover,
+.thumbnail.active {
+    border-color: var(--accent);
+}
+
+/* ============================================
+   INFO SECTION
+   ============================================ */
+
+.info-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Detail Header */
+.detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.title-block {
+    flex: 1;
+}
+
+.detail-brand {
+    display: inline-block;
+    font-size: 0.9rem;
+    color: var(--accent);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+}
+
+.detail-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.detail-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--accent);
+    font-size: 0.95rem;
+}
+
+.detail-rating i {
+    color: #fbbf24;
+}
+
+.detail-rating span {
+    color: var(--text-muted);
+    margin-left: 0.5rem;
+}
+
+/* Price Block */
+.price-block {
+    text-align: right;
+}
+
+.detail-price {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+}
+
+.detail-time {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+}
+
+.price-note {
+    font-size: 0.85rem;
+    color: var(--success);
+    margin-top: 0.5rem;
+}
+
+/* Quick Specs */
+.quick-specs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.spec-box {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.spec-box:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+}
+
+.spec-box i {
+    font-size: 2rem;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+}
+
+.spec-label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
+.spec-value {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-light);
+}
+
+/* Description */
+.description-section h2,
+.features-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-family: 'Playfair Display', serif;
+}
+
+.description-section p {
+    color: var(--text-muted);
+    line-height: 1.8;
+    font-size: 1rem;
+}
+
+/* Features Grid */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: var(--glass);
+    border-radius: 10px;
+    font-size: 0.95rem;
+}
+
+.feature-item i {
+    color: var(--success);
+    font-size: 1.1rem;
+}
+
+/* Action Section */
+.action-section {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem;
+}
+
+.price-summary {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+    color: var(--text-muted);
+}
+
+.summary-row.total {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-light);
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 1rem;
+}
+
+.btn-primary {
+    padding: 1rem 2rem;
+    background: var(--accent);
+    color: var(--primary);
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.btn-primary:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(201, 169, 98, 0.3);
+}
+
+.btn-secondary {
+    padding: 1rem;
+    background: transparent;
+    border: 2px solid var(--border);
+    color: var(--text-light);
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.btn-secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+/* Contact Section */
+.contact-section {
+    text-align: center;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, rgba(201, 169, 98, 0.1) 0%, transparent 100%);
+    border-radius: 16px;
+    border: 1px solid rgba(201, 169, 98, 0.2);
+}
+
+.contact-section h3 {
+    margin-bottom: 1rem;
+    color: var(--accent);
+}
+
+.contact-options {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.contact-btn {
+    padding: 0.75rem 1.5rem;
+    background: var(--glass);
+    border: 1px solid var(--border);
+    color: var(--text-light);
+    border-radius: 10px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+.contact-btn:hover {
+    border-color: var(--accent);
+    background: rgba(201, 169, 98, 0.1);
+}
+
+.contact-btn.whatsapp {
+    background: #25d366;
+    color: white;
+    border-color: #25d366;
+}
+
+.contact-btn.whatsapp:hover {
+    background: #128c7e;
+}
+
+/* Error State */
+.error-state {
+    text-align: center;
+    padding: 4rem 2rem;
+}
+
+.error-state i {
+    font-size: 4rem;
+    color: var(--danger);
+    margin-bottom: 1rem;
+}
+
+.error-state h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.error-state p {
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+}
+
+/* Similar Cars Section */
+.similar-section {
+    background: rgba(255, 255, 255, 0.02);
+    padding: 4rem 5%;
+    border-top: 1px solid var(--border);
+}
+
+.similar-container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.similar-container h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.similar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Detail Footer */
+.detail-footer {
+    background: var(--primary);
+    padding: 2rem 5%;
+    border-top: 1px solid var(--border);
+}
+
+.footer-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.footer-content p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.footer-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.footer-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--accent);
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 1024px) {
+    .detail-content {
+        grid-template-columns: 1fr;
+    }
+
+    .quick-specs {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .action-buttons {
+        grid-template-columns: 1fr;
+    }
+
+    .detail-name {
+        font-size: 2rem;
+    }
+
+    .detail-price {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .breadcrumb {
+        margin-top: 70px;
+    }
+
+    .detail-header {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .price-block {
+        text-align: left;
+    }
+
+    .quick-specs {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .spec-box {
+        padding: 1rem;
+    }
+
+    .thumbnail-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .detail-name {
+        font-size: 1.75rem;
+    }
+
+    .detail-price {
+        font-size: 2rem;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Navigation -->
+    <!-- Navigation -->
+<nav>
+    <a href="index.html" class="logo">
+        <i class="fas fa-car-side"></i>
+        LuxAuto
+    </a>
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html" class="active">Inventory</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <!-- <a href="#" class="nav-cta">Sell Your Car</a> -->
+</nav>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="breadcrumb-content">
+            <a href="index.html"><i class="fas fa-home"></i> Home</a>
+            <span>/</span>
+            <a href="index.html">Inventory</a>
+            <span>/</span>
+            <span id="breadcrumbCarName">Car Details</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="detail-container">
+        <!-- Loading State -->
+        <div class="loading-state" id="loadingState">
+            <div class="spinner-large"></div>
+            <p>Loading car details...</p>
+        </div>
+
+        <!-- Car Detail Content -->
+        <div class="detail-content" id="detailContent" style="display: none;">
+            
+            <!-- Image Gallery Section -->
+            <section class="gallery-section">
+                <div class="main-image">
+                    <img id="mainCarImage" src="" alt="Car Image">
+                    <div class="image-badge" id="imageBadge">Featured</div>
+                    <button class="fullscreen-btn" onclick="toggleFullscreen()">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                </div>
+                <div class="thumbnail-grid" id="thumbnailGrid">
+                    <!-- Thumbnails generated by JS -->
+                </div>
+            </section>
+
+            <!-- Info Section -->
+            <section class="info-section">
+                <!-- Header -->
+                <div class="detail-header">
+                    <div class="title-block">
+                        <span class="detail-brand" id="detailBrand">TOYOTA</span>
+                        <h1 class="detail-name" id="detailName">2026 Toyota Camry</h1>
+                        <div class="detail-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <span>4.8 (124 reviews)</span>
+                        </div>
+                    </div>
+                    <div class="price-block">
+                        <div class="detail-price" id="detailPrice">₦25m</div>
+                        <div class="detail-time" id="detailTime">per day</div>
+                        <div class="price-note">Taxes included</div>
+                    </div>
+                </div>
+
+                <!-- Quick Specs -->
+                <div class="quick-specs">
+                    <div class="spec-box">
+                        <i class="fas fa-cog"></i>
+                        <span class="spec-label">Transmission</span>
+                        <span class="spec-value" id="detailType">Automatic</span>
+                    </div>
+                    <div class="spec-box">
+                        <i class="fas fa-gas-pump"></i>
+                        <span class="spec-label">Tank Capacity</span>
+                        <span class="spec-value" id="detailLiters">65 L</span>
+                    </div>
+                    <div class="spec-box">
+                        <i class="fas fa-snowflake"></i>
+                        <span class="spec-label">Air Conditioning</span>
+                        <span class="spec-value" id="detailAir">Yes</span>
+                    </div>
+                    <div class="spec-box">
+                        <i class="fas fa-users"></i>
+                        <span class="spec-label">Seats</span>
+                        <span class="spec-value">5 People</span>
+                    </div>
+                    <div class="spec-box">
+                        <i class="fas fa-suitcase"></i>
+                        <span class="spec-label">Luggage</span>
+                        <span class="spec-value">3 Bags</span>
+                    </div>
+                    <div class="spec-box">
+                        <i class="fas fa-calendar"></i>
+                        <span class="spec-label">Year</span>
+                        <span class="spec-value">2026</span>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="description-section">
+                    <h2>Description</h2>
+                    <p id="detailDescription">
+                        Experience luxury and performance with this exceptional vehicle. 
+                        Perfect for both city driving and long journeys, featuring premium 
+                        amenities and cutting-edge technology.
+                    </p>
+                </div>
+
+                <!-- Features List -->
+                <div class="features-section">
+                    <h2>Features</h2>
+                    <div class="features-grid">
+                        <div class="feature-item"><i class="fas fa-check"></i> GPS Navigation</div>
+                        <div class="feature-item"><i class="fas fa-check"></i> Bluetooth</div>
+                        <div class="feature-item"><i class="fas fa-check"></i> Backup Camera</div>
+                        <div class="feature-item"><i class="fas fa-check"></i> Keyless Entry</div>
+                        <div class="feature-item"><i class="fas fa-check"></i> Cruise Control</div>
+                        <div class="feature-item"><i class="fas fa-check"></i> Heated Seats</div>
+                        <div class="feature-item"><i class="fas fa-check"></i> Sunroof</div>
+                        <div class="feature-item"><i class="fas fa-check"></i> Parking Sensors</div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-section">
+                    <div class="price-summary">
+                        <div class="summary-row">
+                            <span>Base Price</span>
+                            <span id="summaryBasePrice">₦25m</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Insurance</span>
+                            <span>$2,000</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Service Fee</span>
+                            <span>$700</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span></span>
+                            <span id="summaryTotal"></span>
+                        </div>
+                    </div>
+<!--                     
+                    <div class="action-buttons">
+                        <button class="btn-primary" onclick="bookNow()">
+                            <i class="fas fa-calendar-check"></i>
+                            Book Now
+                        </button>
+                        <button class="btn-secondary" onclick="addToCompare()">
+                            <i class="fas fa-exchange-alt"></i>
+                            Compare
+                        </button>
+                        <button class="btn-secondary" onclick="addToFavorites()">
+                            <i class="fas fa-heart"></i>
+                            Save
+                        </button>
+                    </div>
+                </div> -->
+
+                <!-- Contact Info -->
+                <div class="contact-section">
+                    <h3>contact seller</h3>
+                    <div class="contact-options">
+                        <!-- <a href="tel:+2348000000000" class="contact-btn">
+                            <i class="fas fa-phone"></i>
+                            Call Us
+                        </a> -->
+                        <a href="https://wa.me/message/OEVVG3W6Z6YGM1" class="contact-btn whatsapp">
+                            <i class="fab fa-whatsapp"></i>
+                            WhatsApp
+                        </a>
+                        <!-- <button class="contact-btn" onclick="showToast('Live chat coming soon!', 'info-circle')">
+                            <i class="fas fa-comments"></i>
+                            Live Chat
+                        </button> -->
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Error State -->
+        <div class="error-state" id="errorState" style="display: none;">
+            <i class="fas fa-exclamation-circle"></i>
+            <h2>Car Not Found</h2>
+            <p>Sorry, we couldn't find the car you're looking for.</p>
+            <a href="index.html" class="btn-primary">Back to Inventory</a>
+        </div>
+    </main>
+
+    <!-- Similar Cars Section -->
+    <!-- <section class="similar-section" id="similarSection" style="display: none;">
+        <div class="similar-container">
+            <h2>Similar Vehicles</h2>
+            <div class="similar-grid" id="similarGrid">
+                Similar cars loaded by JS
+            </div>
+        </div>
+    </section> -->
+
+    <!-- Footer -->
+    <footer class="detail-footer">
+        <div class="footer-content">
+            <p>&copy; 2026 LuxAuto. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="cars.js"></script>
+    <script src="display.js"></script>
+    <script src="detail.js"></script>
+</body>
+</html>
