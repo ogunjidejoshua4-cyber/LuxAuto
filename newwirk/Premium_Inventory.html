@@ -876,11 +876,11 @@ nav {
             LuxAuto
         </a>
         <ul class="nav-links">
-            <li><a href="../index.html">Home</a></li>
-            <li><a href="../newwirk/Premium_Inventory.html" class="active">Inventory</a></li>
-            <li><a href="../services.html">Services</a></li>
-            <li><a href="../about.html">About</a></li>
-            <li><a href="../contact.html">Contact</a></li>
+            <li><a href="../index.html" id="nav_home">Home</a></li>
+            <li><a href="./Premium_Inventory.html" class="active">Inventory</a></li>
+            <li><a href="./services.html">Services</a></li>
+            <li><a href="./about.html">About</a></li>
+            <li><a href="./contact.html">Contact</a></li>
         </ul>
         <a href="#" class="nav-cta">Sell Your Car</a>
     </nav>
@@ -1009,5 +1009,12 @@ nav {
     <script src="carsARRAY.js"></script>
     <script src="display.js"></script>
     <script src="main.js"></script>
+    <script>
+        const navHome = document.getElementById('nav_home');
+        navHome.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.href = '../index.html';
+        });
+    </script>
 </body>
 </html>
