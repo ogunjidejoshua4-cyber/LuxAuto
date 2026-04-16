@@ -77,7 +77,7 @@ function populateCarDetails(car) {
     // Calculate total (base + insurance + fee)
     const basePrice = parseInt(car.price.replace('₦', '').replace('m', ''));
     const total = basePrice + 2 + 0.5; // Add ₦2m insurance + ₦500k fee
-    document.getElementById('summaryTotal').textContent = `₦${total}m`;
+    // document.getElementById('summaryTotal').textContent = `₦${total}m`;
 
     // Generate thumbnails (using same image with variations for demo)
     generateThumbnails(car);
